@@ -89,6 +89,7 @@ function nutritioninfo_field_schema() {
       'length' => 255,
       'not null' => FALSE,
       'default' => '',
+      ),
   );
 
   return array(
