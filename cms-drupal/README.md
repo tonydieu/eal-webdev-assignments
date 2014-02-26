@@ -1,4 +1,4 @@
-# Drupal development for modules and themes.
+# Modules and Theme development for Drupal
 
 This folder will contain:
 - Theme dev.
