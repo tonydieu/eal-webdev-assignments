@@ -20,6 +20,13 @@ function gcd($a, $b) {
   return ( $a % $b )? gcd($b, abs($a - $b)) : $b;
 }
 
+/**
+* Implements hook_field_info_alter().
+*/
+function d7dev_field_info_alter(&$info) {
+  $info['number_integer']['microdata'] = TRUE;
+}
+
  /**
 * Implements hook_field_formatter_view().
 */
