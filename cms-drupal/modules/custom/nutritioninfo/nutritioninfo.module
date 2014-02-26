@@ -28,8 +28,7 @@ function nutritioninfo_field_validate($entity_type, $entity,
 * Implements hook_field_is_empty().
 */
 function nutritioninfo_field_is_empty($item, $field) {
-//the nutrition field is empty if all of its properties are
-  empty
+//the nutrition field is empty if all of its properties are empty
   return empty($item['calories'])
   && empty($item['carbohydrate_content'])
   && empty($item['cholesterol_content'])
@@ -51,7 +50,7 @@ function nutritioninfo_field_widget_info() {
   $widgets = array();
   $widgets['nutritioninfo_standard'] = array(
     'label' => t('Nutrition Information form'),
-    'field types' => array('nutritioninfo'), ),
+    'field types' => array('nutritioninfo')
   );
 return $widgets;
 }
