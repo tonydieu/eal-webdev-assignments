@@ -1,0 +1,61 @@
+<?php
+/**
+* Implements hook_field_formatter_info().
+*/
+function d7dev_field_formatter_info() {
+  return array(
+    'd7dev_integer_duration' => array(
+    'label' => t('Duration'),
+    'field types' => array('number_integer'),
+    )
+  );
+}
+
+
+//The book D7 development by example forgets to tell the reader where this code should be placed and it is also left out in the final code example.
+
+//simple helper function to get gcd of minutes
+function gcd($a, $b) {
+  $b = ( $a == 0 )? 0 : $b;
+  return ( $a % $b )? gcd($b, abs($a - $b)) : $b;
+}
+
+ /**
+* Implements hook_field_formatter_view().
+*/
+function d7dev_field_formatter_view($entity_type, $entity, $field,
+  $instance, $langcode, $items, $display) {
+    $element = array();
+    $settings = $display['settings'];
+
+    switch ($display['type']) {
+
+      case 'd7dev_integer_duration':
+        foreach ($items as $delta => $item) {
+      //some simple math to covert the duration minutes to hours
+      //and the remainder as minutes
+
+      //divide by minutes in 1 hour and get floor
+        $hours = floor($item['value']/60);
+
+      //use the modulus to get the remainder of minutes
+        $minutes = $item['value']%60;
+
+      //get greatest common denominator of minutes to convert to fraction of hours
+        $minutes_gcd = gcd($minutes, 60);
+
+      /* &frasl; is the html entity for the fraction separator, and we 
+      use the sup and sub html element to give the appearance of a 
+      fraction */
+        $minutes_fraction = '<sup>' . $minutes/$minutes_gcd . '</sup>&frasl;<sub>' . 60/$minutes_gcd . '</sub>';
+      //markup change color to red if hours > 0 (TRUE)
+        $markup = $hours > 0 ? '<span style="color: red;">' . $hours . ' and ' . $minutes_fraction . ' hours' .  '</span>' : $minutes_fraction . ' hour';
+
+      //finally, return our formatted value as the markup for this field
+      //formatter
+        $element[$delta] = array('#markup' => $markup);
+    }
+  break;
+  }
+  return $element;
+}
