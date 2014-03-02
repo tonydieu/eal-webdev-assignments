@@ -5,7 +5,10 @@
   <title>Login</title>
 </head>
 <body>
-  <form id="login" action="login.php" method="post">
+  <?php
+  include 'incl/login.php';
+   ?>
+  <form id="login" method="post">
     <fieldset>
       <legend>Login</legend>
       <input type="hidden" name="submitted" id="submitted" value="1">
