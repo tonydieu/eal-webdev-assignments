@@ -1,4 +1,6 @@
 <?php
+include 'verify_user.php';
+
 if(isset($_POST['submit'])) {
   // call Login() when user submit.
   Login();
