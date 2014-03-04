@@ -1,9 +1,4 @@
 <?php
-// create a new user.
-$user_info = new User("mdam@eal.dk", "1234", "01", "Morten Damgaard", TRUE);
-$user = $user_info->username;
-$pass = $user_info->password;
-
 if(isset($_POST['submit'])) {
   // call Login() when user submit.
   $login = new Login();
@@ -11,24 +6,36 @@ if(isset($_POST['submit'])) {
 
 class User {
   // define properties.
-  public $username;
-  public $password;
-  public $userID;
-  public $name;
-  public $active;
+  private $username;
+  private $password;
 
-  public function __construct($username,$password, $userID, $name, $active){
-    $this->username=$username;
-    $this->password=$password;
-    $this->userID=$userID;
-    $this->name=$name;
-    $this->active=$active;
+  public function __construct() {
+    $this->username = "mdam@eal.dk";
+    $this->password = "1234";
   }
 
+  public function __get($property) {
+    if (property_exists($this, $property)) {
+      return $this->$property;
+    }
+  }
+
+  public function __set($property, $value) {
+    if (property_exists($this, $property)) {
+      $this->$property = $value;
+    }
+
+    return $this;
+  }
 }
 
 // class definition.
 class Login {
+  private $username;
+  private $password;
+  private $user;
+  private $pass;
+
   public function Login() {
   // check if username or password is empty.
     $username = isset($_POST['username']) ? $_POST['username'] : false;
@@ -41,7 +48,7 @@ class Login {
       }
       else {
       // verify user and pass.
-        self::LogMeIn($username, $password);
+        $this->LogMeIn($username, $password);
       }
     }
     else if ($username && (!($password))) {
@@ -64,9 +71,10 @@ class Login {
     }
   }
 
-  public static function LogMeIn($username, $password) {
-    global $user;
-    global $pass;
+  public function LogMeIn($username, $password) {
+    $user_mdam = new User();
+    $user = $user_mdam->__get(username);
+    $pass = $user_mdam->__get(password);
 
     if ((!($username == $user))) {
       echo "User not found.";
