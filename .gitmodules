@@ -1,0 +1,6 @@
+[submodule "phaser/framework"]
+	path = phaser/framework
+	url = https://github.com/photonstorm/phaser.git
+[submodule "phaser/phaser-examples"]
+	path = phaser/phaser-examples
+	url = https://github.com/photonstorm/phaser-examples.git
