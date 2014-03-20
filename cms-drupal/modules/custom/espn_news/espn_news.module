@@ -109,3 +109,68 @@
 
     return system_settings_form($form);
   }
+
+  /**
+   * Custom API content callback.
+   *
+   * This callback is a custom callback to get ESPN news data.
+   * Here we request the data, preprocesses it and creates a list of news. The
+   * array '$items' contains all the news, we'll display it as a unordered list
+   * later on.
+   *
+   * drupal_http_request: https://api.drupal.org/api/drupal/includes!common.inc/function/drupal_http_request/7
+   * drupal_json_decode: https://api.drupal.org/api/drupal/includes!common.inc/function/drupal_json_decode/7
+   */
+  function espn_news_api_content() {
+
+    // API path.
+    $api_url = 'http://api.espn.com/v1/sports/news/';
+    // Query parameters.
+    $query = $api_url . '?apikey=' . variable_get('espn_news_api_key') . '&limit=5';
+    // Query options.
+    $options = array(
+      'method' => 'GET',
+      'timeout' => 5,
+      'headers' => array(
+        'Content-Type' => 'application/json; charset=utf-8',
+      ),
+    );
+
+    // Request data.
+    $request = drupal_http_request($query);
+
+    // Convert data into associative array.
+    $result = drupal_json_decode($request->data);
+
+    // Loop through news.
+    foreach($result['headlines'] as $news) {
+
+      // Raw data.
+      $news_id = $news['id'];
+      $news_headline = $news['headline'];
+      $news_article_href = $news['links']['web']['href'];
+      $news_teaser = $news['linkText'];
+      $news_description = $news['description'];
+      $news_last_modified = $news['lastModified'];
+      // Process data.
+      $news_datetime = date('H:i', strtotime($news_last_modified));
+      $news_headline_link = l($news_headline, $news_article_href, $option = array(
+        'attributes' => array(
+          'class' => 'headline_href',
+          'target' => '_blank',
+        ),
+      ));
+
+      // Create li item with content.
+      $items[] = array(
+        'data' => '<h3 class="headline">' . $news_headline_link . '</h3>' .
+          '<span class="datetime">' . $news_datetime . '</span>' .
+          '<div class="teaser"><p>' . $news_teaser . '</p></div>' .
+          '<div class="description"><p>' . $news_description . '</p></div>',
+        'id' => 'news-' . $news_id,
+      );
+
+    }
+
+    return $items;
+  }
