@@ -1,0 +1,32 @@
+.region-content ul#espn-news {
+  list-style-type: none;
+}
+
+.region-content ul#espn-news img {
+  width: 400px;
+}
+
+.epsn_headline {
+  font: normal normal bold 2em/1.2 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-decoration: none;
+}
+
+.epsn_datetime {
+
+}
+
+.epsn_teaser {
+
+}
+
+.epsn_cat-description {
+
+}
+
+.epsn_img {
+
+}
+
+.epsn_description {
+
+}
