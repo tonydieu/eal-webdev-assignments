@@ -50,13 +50,26 @@
     $block = array();
 
     switch ($delta) {
-      case 'espn_news':
+     case 'espn_news':
+        // List attributes.
+        $attributes = array(
+          'id' => 'espn_news',
+        );
 
-      // Set block title.
-      $block['subject'] = t('ESPN News');
+        // Set block title.
+        $block['subject'] = t('ESPN News');
 
-      // Set block content.
-      $block['content'] = 'Hello World';
+        // Get content from API.
+        $items = espn_news_api_content();
+
+        // Print list.
+        $block['content'] = theme('item_list', array(
+          'items' => $items,
+          'type' => 'ul',
+          'attributes' => array(
+            'id' => 'espn-news',
+          ),
+        ));
     }
 
     return $block;
