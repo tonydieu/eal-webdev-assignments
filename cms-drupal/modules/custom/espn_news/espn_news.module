@@ -223,3 +223,26 @@
 
     return $items;
   }
+
+  /**
+   * Implements hook_validate().
+   *
+   * Validation for configuration form. Since we need a number in the
+   * limit-textfield, we check that the input is correct.
+   *
+   * @url: https://api.drupal.org/api/drupal/modules!node!node.api.php/function/hook_validate/7
+   */
+  function espn_news_form_validate($form, &$form_state) {
+    // Get current value from input.
+    $espn_news_limit = $form_state['values']['espn_news_limit'];
+
+    // Check that input is a number.
+    if (!is_numeric($espn_news_limit)) {
+      form_set_error('espn_news_limit', t('Limit must be a number.'));
+    }
+    // Here you can check for negative numbers.
+    else if ($espn_news_limit < 0) {
+      form_set_error('espn_news_limit', t('Value cannot be negative.'));
+    }
+
+  }
