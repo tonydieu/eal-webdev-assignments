@@ -158,9 +158,15 @@
     // Loop through news.
     foreach($result['headlines'] as $news) {
 
+      if(isset($news['headline'])) {
+        $news_headline = $news['headline'];
+      }
+      else {
+        $news_headline = "Missing headline";
+      }
+
       // Raw data.
       $news_id = $news['id'];
-      $news_headline = $news['headline'];
       $news_article_href = $news['links']['web']['href'];
       $news_teaser = $news['linkText'];
       $news_description = $news['description'];
