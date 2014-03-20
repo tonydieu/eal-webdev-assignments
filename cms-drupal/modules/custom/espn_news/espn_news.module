@@ -119,6 +119,16 @@
       '#description' => t('API from ESPN Developer Center (http://developer.espn.com/apps/mykeys).'),
       '#required' => TRUE,
     );
+    // Limit output.
+    $form['espn_api']['espn_news_limit'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Limit'),
+      '#default_value' => variable_get('espn_news_limit', 10),
+      '#size' => 5,
+      '#maxlength' => 2,
+      '#description' => t('Limit number of news articles shown.'),
+      '#required' => TRUE,
+    );
 
     return system_settings_form($form);
   }
@@ -139,7 +149,7 @@
     // API path.
     $api_url = 'http://api.espn.com/v1/sports/news/';
     // Query parameters.
-    $query = $api_url . '?apikey=' . variable_get('espn_news_api_key') . '&limit=5';
+    $query = $api_url . '?apikey=' . variable_get('espn_news_api_key') . '&limit=' . variable_get('espn_news_limit');
     // Query options.
     $options = array(
       'method' => 'GET',
