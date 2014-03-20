@@ -1,0 +1,8 @@
+name = ESPN News
+description = Provides a block with recent ESPN sport news.
+
+core = 7.x
+package = Custom
+
+; Link to configuration page, set in espn_news.module: espn_news_menu()
+configure = admin/config/content/espn_news

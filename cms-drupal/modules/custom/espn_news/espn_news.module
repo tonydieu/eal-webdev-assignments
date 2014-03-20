@@ -1,0 +1,19 @@
+<?php
+
+  /**
+   * Implements hook_block_info().
+   * 
+   * Declares a block to provide to Drupal. This can also specify block
+   * configuration settings, like here where the cache is determined be the
+   * user role.
+   *
+   * @url: https://api.drupal.org/api/drupal/modules!block!block.api.php/function/hook_block_info/7
+   */
+  function espn_news_block_info() {
+    $blocks['espn_news'] = array(
+      'info' => t('ESPN News'),
+      'cache' => DRUPAL_CACHE_PER_ROLE,
+    );
+
+    return $blocks;
+  }
