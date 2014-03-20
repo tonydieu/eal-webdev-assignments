@@ -2,7 +2,7 @@
 
   /**
    * Implements hook_block_info().
-   * 
+   *
    * Declares a block to provide to Drupal. This can also specify block
    * configuration settings, like here where the cache is determined be the
    * user role.
@@ -41,7 +41,7 @@
    /**
    * Implements hook_block_view().
    *
-   * Creates content for our block. It sets the title for the block, and the 
+   * Creates content for our block. It sets the title for the block, and the
    * content.
    *
    * @url: https://api.drupal.org/api/drupal/modules!block!block.api.php/function/hook_block_view/7
@@ -60,4 +60,29 @@
     }
 
     return $block;
+  }
+
+  /**
+   * Implements hook_menu().
+   *
+   * Defines paths to provide page callbacks and menu items for the site.
+   * Here it defines a configuration page with callback to a form, we'll
+   * create later on.
+   *
+   * @url: https://api.drupal.org/api/drupal/modules!system!system.api.php/function/hook_menu/7
+   */
+  function espn_news_menu() {
+    $items = array();
+
+    // Module configuration page.
+    $items['admin/config/content/espn_news'] = array(
+      'title' => 'ESPN News',
+      'description' => 'Configuration for ESPN News module',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('espn_news_form'),
+      'access arguments' => array('administer site configuration'),
+      'type' => MENU_NORMAL_ITEM,
+    );
+
+    return $items;
   }
