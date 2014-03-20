@@ -158,11 +158,28 @@
     // Loop through news.
     foreach($result['headlines'] as $news) {
 
+      // check if heaedline is empty
       if(isset($news['headline'])) {
         $news_headline = $news['headline'];
       }
       else {
         $news_headline = "Missing headline";
+      }
+
+      // check if img alt is empty
+      if(isset($news['images'][0]['alt'])) {
+      $news_image_alt = $news['images'][0]['alt'];
+      }
+      else {
+        $news_image_alt = "image";
+      }
+
+      // check if img is empty
+      if(isset($news['images'][0]['url'])) {
+        $news_image = $news['images'][0]['url'];
+      }
+      else {
+        $news_image = "http://placehold.it/350x150";
       }
 
       // Raw data.
@@ -172,8 +189,6 @@
       $news_description = $news['description'];
       $news_last_modified = $news['lastModified'];
       $news_cat_description = $news['categories'][0]['description'];
-      $news_image = $news['images'][0]['url'];
-      $news_image_alt = $news['images'][0]['alt'];
       // Process data.
       $news_datetime = date('H:i', strtotime($news_last_modified));
       $news_headline_link = l($news_headline, $news_article_href, $option = array(
