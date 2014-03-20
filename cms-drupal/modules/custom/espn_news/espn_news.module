@@ -17,3 +17,23 @@
 
     return $blocks;
   }
+  /**
+   * Implements hook_help().
+   *
+   * You can add documentation and help here (in admin/help#espn_news). This
+   * documentation can help the users use and extend you module.
+   *
+   * @url: https://api.drupal.org/api/drupal/modules!help!help.api.php/function/hook_help/7
+   */
+  function espn_news_help($path, $arg) {
+    switch ($path) {
+      case 'admin/setting/espn_news':
+        return t('This module displays a block which shows a list recent ESPN sport news.');
+
+      case 'admin/help#espn_news';
+        $output = '<h2>' . t('About') . '</h2>';
+        $output .= '<p>' . t('Displays recent sport news from ESPN.') . '</p>';
+        $output .= '<p>' . t('The news is fetched with ESPNs open REST API, all rights reserved to ESPN (2014).') . '</p>';
+        return $output;
+    }
+  }
