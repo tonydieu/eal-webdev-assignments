@@ -173,6 +173,7 @@
       $news_last_modified = $news['lastModified'];
       $news_cat_description = $news['categories'][0]['description'];
       $news_image = $news['images'][0]['url'];
+      $news_image_alt = $news['images'][0]['alt'];
       // Process data.
       $news_datetime = date('H:i', strtotime($news_last_modified));
       $news_headline_link = l($news_headline, $news_article_href, $option = array(
@@ -188,7 +189,7 @@
           '<span class="epsn_datetime">' . $news_datetime . '</span>' .
           '<div class="espn_teaser"><p>' . $news_teaser . '</p></div>' .
           '<div class="espn_cat-description"><p>Category: ' . $news_cat_description . '</p></div>' .
-          '<div class="espn_img"><img src=" ' . $news_image . '" /></div>' .
+          '<div class="espn_img"><img src=" ' . $news_image . '" alt="'. $news_image_alt . '" /></div>' .
           '<div class="epsn_description"><p>' . $news_description . '</p></div>',
         'id' => 'news-' . $news_id,
       );
