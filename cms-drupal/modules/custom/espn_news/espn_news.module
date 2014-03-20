@@ -190,7 +190,7 @@
       $news_last_modified = $news['lastModified'];
       $news_cat_description = $news['categories'][0]['description'];
       // Process data.
-      $news_datetime = date('H:i', strtotime($news_last_modified));
+      $news_datetime = date('m/d/y - H:i', strtotime($news_last_modified));
       $news_headline_link = l($news_headline, $news_article_href, $option = array(
         'attributes' => array(
           'class' => 'headline_href',

@@ -6,3 +6,6 @@ package = Custom
 
 ; Link to configuration page, set in espn_news.module: espn_news_menu()
 configure = admin/config/content/espn_news
+
+; Add a Style sheet for all media
+stylesheets[all][] = espn_news.main.css
