@@ -171,6 +171,8 @@
       $news_teaser = $news['linkText'];
       $news_description = $news['description'];
       $news_last_modified = $news['lastModified'];
+      $news_cat_description = $news['categories'][0]['description'];
+      $news_image = $news['images'][0]['url'];
       // Process data.
       $news_datetime = date('H:i', strtotime($news_last_modified));
       $news_headline_link = l($news_headline, $news_article_href, $option = array(
@@ -182,10 +184,12 @@
 
       // Create li item with content.
       $items[] = array(
-        'data' => '<h3 class="headline">' . $news_headline_link . '</h3>' .
-          '<span class="datetime">' . $news_datetime . '</span>' .
-          '<div class="teaser"><p>' . $news_teaser . '</p></div>' .
-          '<div class="description"><p>' . $news_description . '</p></div>',
+        'data' => '<h3 class="epsn_headline">' . $news_headline_link . '</h3>' .
+          '<span class="epsn_datetime">' . $news_datetime . '</span>' .
+          '<div class="espn_teaser"><p>' . $news_teaser . '</p></div>' .
+          '<div class="espn_cat-description"><p>Category: ' . $news_cat_description . '</p></div>' .
+          '<div class="espn_img"><img src=" ' . $news_image . '" /></div>' .
+          '<div class="epsn_description"><p>' . $news_description . '</p></div>',
         'id' => 'news-' . $news_id,
       );
 
