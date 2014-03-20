@@ -86,3 +86,26 @@
 
     return $items;
   }
+
+    function espn_news_form($form, &$form_state) {
+    // Fieldset.
+    $form['espn_api'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('ESPN API'),
+      '#weight' => 0,
+      '#collapsible' => TRUE,
+      '#collapsed' => FALSE,
+    );
+    // Textfield for API key.
+    $form['espn_api']['espn_news_api_key'] = array(
+      '#type' => 'textfield',
+      '#title' => t('ESPN API key'),
+      '#default_value' => variable_get('espn_news_api_key'),
+      '#size' => 40,
+      '#maxlength' => 24,
+      '#description' => t('API from ESPN Developer Center (http://developer.espn.com/apps/mykeys).'),
+      '#required' => TRUE,
+    );
+
+    return system_settings_form($form);
+  }
