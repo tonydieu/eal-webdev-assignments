@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Burn Zoombie Burn</title>
+  <script type="text/javascript" src="js/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+var sprite;
+var gameStart = false;
+var enemies;
+var height = 800;
+var width = 600;
+
+var game = new Phaser.Game(height, width, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+
+function preload() {
+    game.load.image('player', 'assets/square.png');
+    game.load.image('enemy', 'assets/enemy.png');
+
+}
+
+
+function create() {
+
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+
+    game.stage.backgroundColor = '#0072bc';
+
+    sprite = game.add.sprite(400, 300, 'player');
+    sprite.anchor.setTo(0.5, 0.5);
+    gameStart = true;
+    enemies = game.add.group();
+    enemies.enableBody = true;
+
+    //  Enable Arcade Physics for the sprite
+    game.physics.enable(sprite, Phaser.Physics.ARCADE);
+
+    //  Tell it we don't want physics to manage the rotation
+    sprite.body.allowRotation = false;
+
+    game.time.events.loop(2000, updateCounter, this);
+
+}
+
+function updateCounter() {
+
+    // var ball = enemies.create(game.world.randomX, game.world.randomY, 'enemy');
+
+    var randomSpawn = Math.floor(Math.random()*4);
+    switch(randomSpawn){
+        case 0:
+        enemies.create(0, game.world.randomY, 'enemy');
+        break;
+        case 1:
+        enemies.create(game.world.randomX, 0, 'enemy');
+        break;
+        case 2:
+        enemies.create(game.world.randomX, height, 'enemy');
+        break;
+        case 3:
+        enemies.create(width, game.world.randomY, 'enemy');
+        break;
+        default:
+        console.log("error");
+    }
+}
+
+function update() {
+
+    sprite.rotation = game.physics.arcade.angleToPointer(sprite);
+
+    if (gameStart === true)
+    {
+        //  First is the callback
+        //  Second is the context in which the callback runs, in this case game.physics.arcade
+        //  Third is the parameter the callback expects - it is always sent the Group child as the first parameter
+        enemies.forEach(game.physics.arcade.moveToObject, sprite, 10, 200);
+        // enemies.game.physics.arcade.moveToPointer(enemies, sprite, 500);
+
+
+    }
+    else
+    {
+        enemies.setAll('body.velocity.x', 0);
+        enemies.setAll('body.velocity.y', 0);
+    }
+
+}
+
+
+</script>
+
+</body>
+</html>
