@@ -11,4 +11,3 @@ Goal:
 - Create amazing code and web application.
 - Create something useful or giving back to the community.
 
-Feel free to look around in my messy code.
