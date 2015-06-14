@@ -1,5 +1,5 @@
 # EAL BA Web Dev Assignments
-Hi! I'll be using this repo for practicing git and som web dev.
+I'll be using this repo for practicing git and som web dev.
 
 This repo will probably contain:
 - Solutions for my assignements.
